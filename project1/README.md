@@ -33,6 +33,7 @@ In SQLite, load virtual table extension with:
 ```
 .load ./lib/libvtable.dylib
 ```
+
 or load `libvtable.so` (Linux), `libvtable.dll` (Windows)
 
 Create virtual table:  
@@ -61,3 +62,8 @@ https://sqlite.org/vtab.html
 * delete empty page from table heap when delete tuple
 * implement delete table, with empty page bitmap in disk manager (how to persistent?)
 * index: unique/dup key, variable key
+
+
+### 疑问
+1. 在做可扩展哈希的时候，发现源码文件中如果出现重复哈希值的情况下，是直接将那条记录覆盖；但是我看的博客上采用的是用链表的方式，将重复的项在桶内连在一起。如果直接覆盖会失掉信息吗？
+2. 在运行cmudb的buffer-pool-manager.cpp源文件时，发现有一个样例无法过去，但理解了他的编码思路之后，却始终没有找到错在何处。
