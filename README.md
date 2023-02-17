@@ -1,6 +1,9 @@
 # database_repository created by <I>Wiselnn</I>
 <span><img src="https://img.shields.io/badge/-SCU-red?logo=github"></span>
 <span><img src="https://img.shields.io/badge/Database-Sqlite-blue?logo=sqlite"><span>
+
+DataBase course of SCU 魏熙林 2019141410450
+
 <details>
 <summary>Homework1</summary>
 <h2>Homework1</h2>
