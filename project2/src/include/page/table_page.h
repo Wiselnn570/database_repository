@@ -79,7 +79,7 @@ private:
   int32_t GetTupleSize(int slot_num);
   void SetTupleOffset(int slot_num, int32_t offset);
   void SetTupleSize(int slot_num, int32_t offset);
-  int32_t GetFreeSpacePointer(); // offset of the beginning of free space
+  int32_t GetFreeSpacePointer(); // 空闲空间开始的偏移量
   void SetFreeSpacePointer(int32_t free_space_pointer);
   int32_t GetTupleCount(); // Note that this tuple count may be larger than # of
                            // actual tuples because some slots may be empty

@@ -1,13 +1,10 @@
 /**
  * b_plus_tree_internal_page.h
  *
- * Store n indexed keys and n+1 child pointers (page_id) within internal page.
- * Pointer PAGE_ID(i) points to a subtree in which all keys K satisfy:
+ * 在内部页面中存储n个索引键和n+1个子指针(page_id)。指针PAGE_ID(i)指向一个子树，其中所有键K都满足:
  * K(i) <= K < K(i+1).
- * NOTE: since the number of keys does not equal to number of child pointers,
- * the first key always remains invalid. That is to say, any search/lookup
- * should ignore the first key.
- *
+ * NOTE: 因为键的数量不等于子指针的数量，所以第一个键始终无效。
+ * 也就是说，任何搜索/查找都应该忽略第一个键。
  * Internal page format (keys are stored in increasing order):
  *  --------------------------------------------------------------------------
  * | HEADER | KEY(1)+PAGE_ID(1) | KEY(2)+PAGE_ID(2) | ... | KEY(n)+PAGE_ID(n) |
@@ -30,7 +27,7 @@ namespace scudb {
 INDEX_TEMPLATE_ARGUMENTS
 class BPlusTreeInternalPage : public BPlusTreePage {
 public:
-  // must call initialize method after "create" a new node
+  // 必须调用初始化方法后“创建”一个新的节点
   void Init(page_id_t page_id, page_id_t parent_id = INVALID_PAGE_ID);
 
   KeyType KeyAt(int index) const;
@@ -69,6 +66,6 @@ private:
                     BufferPoolManager *buffer_pool_manager);
   void CopyFirstFrom(const MappingType &pair, int parent_index,
                      BufferPoolManager *buffer_pool_manager);
-  MappingType array[0];
+  MappingType array[0]; // 零长度数组即为变长数组
 };
 } // namespace scudb

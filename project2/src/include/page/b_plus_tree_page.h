@@ -1,10 +1,10 @@
 /**
  * b_plus_tree_page.h
  *
- * Both internal and leaf page are inherited from this page.
+ * 内部页和叶子页都继承自该页。
  *
- * It actually serves as a header part for each B+ tree page and
- * contains information shared by both leaf page and internal page.
+ * 它实际上是每个B+树页面的标题部分
+ * 包含叶子页和内部页共享的信息。
  *
  * Header format (size in byte, 20 bytes in total):
  * ----------------------------------------------------------------------------
@@ -34,6 +34,7 @@ namespace scudb {
 
 // define page type enum
 enum class IndexPageType { INVALID_INDEX_PAGE = 0, LEAF_PAGE, INTERNAL_PAGE };
+
 enum class OpType { READ = 0, INSERT, DELETE };
 // Abstract class.
 class BPlusTreePage {

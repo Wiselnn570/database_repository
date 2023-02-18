@@ -1,9 +1,8 @@
 /**
  * b_plus_tree_leaf_page.h
  *
- * Store indexed key and record id(record id = page id combined with slot id,
- * see include/common/rid.h for detailed implementation) together within leaf
- * page. Only support unique key.
+ * 将索引键和记录id(记录id =页面id与槽id相结合，
+ * 详细实现参见include/common/rid.h)一起存储在leaf page中。只支持唯一键。
 
  * Leaf page format (keys are stored in order):
  *  ----------------------------------------------------------------------
@@ -32,8 +31,7 @@ INDEX_TEMPLATE_ARGUMENTS
 class BPlusTreeLeafPage : public BPlusTreePage {
 
 public:
-  // After creating a new leaf page from buffer pool, must call initialize
-  // method to set default values
+  // 从缓冲池创建新的叶子页后，必须调用initialize方法设置默认值
   void Init(page_id_t page_id, page_id_t parent_id = INVALID_PAGE_ID);
   // helper methods
   page_id_t GetNextPageId() const;
@@ -42,14 +40,14 @@ public:
   int KeyIndex(const KeyType &key, const KeyComparator &comparator) const;
   const MappingType &GetItem(int index);
 
-  // insert and delete methods
+  // 插入和删除方法
   int Insert(const KeyType &key, const ValueType &value,
              const KeyComparator &comparator);
   bool Lookup(const KeyType &key, ValueType &value,
               const KeyComparator &comparator) const;
   int RemoveAndDeleteRecord(const KeyType &key,
                             const KeyComparator &comparator);
-  // Split and Merge utility methods
+  // 拆分和合并实用方法
   void MoveHalfTo(BPlusTreeLeafPage *recipient,
                   BufferPoolManager *buffer_pool_manager /* Unused */);
   void MoveAllTo(BPlusTreeLeafPage *recipient, int /* Unused */,
