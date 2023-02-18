@@ -18,40 +18,35 @@ public:
   ~IndexIterator();
 
   bool isEnd(){
-    return (leaf_ == nullptr);
+    return (leaf == nullptr);
   }
 
   const MappingType &operator*() {
-    return leaf_->GetItem(index_);
+    return leaf->GetItem(index);
   }
 
   IndexIterator &operator++() {
-    index_++;
-    if (index_ >= leaf_->GetSize()) {
-      page_id_t next = leaf_->GetNextPageId();
-      UnlockAndUnPin();
+    index++;
+    if (index >= leaf->GetSize()) {
+      page_id_t next = leaf->GetNextPageId();
+      bufferPoolManager->FetchPage(leaf->GetPageId())->RUnlatch();
+      bufferPoolManager->UnpinPage(leaf->GetPageId(), false);
       if (next == INVALID_PAGE_ID) {
-        leaf_ = nullptr;
+        leaf = nullptr;
       } else {
         Page *page = bufferPoolManager_->FetchPage(next);
         page->RLatch();
-        leaf_ = reinterpret_cast<B_PLUS_TREE_LEAF_PAGE_TYPE *>(page->GetData());
-        index_ = 0;
+        leaf = reinterpret_cast<B_PLUS_TREE_LEAF_PAGE_TYPE *>(page->GetData());
+        index = 0;
       }
     }
     return *this;
   }
 
 private:
-  // add your own private member variables here
-  void UnlockAndUnPin() {
-    bufferPoolManager_->FetchPage(leaf_->GetPageId())->RUnlatch();
-    bufferPoolManager_->UnpinPage(leaf_->GetPageId(), false);
-    bufferPoolManager_->UnpinPage(leaf_->GetPageId(), false);
-  }
-  int index_;
-  B_PLUS_TREE_LEAF_PAGE_TYPE *leaf_;
-  BufferPoolManager *bufferPoolManager_;
+  int index;
+  B_PLUS_TREE_LEAF_PAGE_TYPE *leaf;
+  BufferPoolManager *bufferPoolManager;
 };
 
 } // namespace scudb
