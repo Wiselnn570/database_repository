@@ -97,6 +97,12 @@ private:
 
   void UpdateRootPageId(int insert_record = false);
 
+  // unlock all parents
+  void UnlockUnpinPages(OpType op, Transaction* transaction);
+
+  template <typename N>
+  bool isSafe(N* node, OpType op);
+
   BPlusTreePage *CrabingProtocalFetchPage(page_id_t page_id,OpType op, page_id_t previous, Transaction *transaction);
 
   void FreePagesInTransaction(bool exclusive,  Transaction *transaction, page_id_t cur = -1);
@@ -149,6 +155,7 @@ private:
   page_id_t root_page_id_;
   BufferPoolManager *buffer_pool_manager_;
   KeyComparator comparator_;
+  static thread_local bool root_is_locked;
   RWMutex mutex_;
   static thread_local int rootLockedCnt;
 
