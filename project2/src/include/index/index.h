@@ -17,10 +17,10 @@ namespace scudb {
 /**
  * class IndexMetadata - Holds metadata of an index object
  *
- * The metadata object maintains the tuple schema and key attribute of an
- * index, since the external callers does not know the actual structure of
- * the index key, so it is the index's responsibility to maintain such a
- * mapping relation and does the conversion between tuple key and index key
+ * 元数据对象维护和索引的元组模式和键属性，
+ * 由于外部调用者不知道索引键的实际结构，
+ * 因此由索引负责维护这种映射关系，
+ * 并进行元组键和索引键之间的转换
  */
 class Transaction;
 class IndexMetadata {
@@ -39,19 +39,17 @@ public:
 
   inline const std::string &GetTableName() { return table_name_; }
 
-  // Returns a schema object pointer that represents the indexed key
+  // 返回表示索引键的架构对象指针
   inline Schema *GetKeySchema() const { return key_schema_; }
 
-  // Return the number of columns inside index key (not in tuple key)
-  // Note that this must be defined inside the cpp source file
-  // because it uses the member of catalog::Schema which is not known here
+  // 返回索引键内的列数(不是元组键内的列数)注意，
+  // 这必须在cpp源文件中定义，因为它使用这里不知道的catalog::Schema成员
   int GetIndexColumnCount() const { return (int)key_attrs_.size(); }
 
-  //  Returns the mapping relation between indexed columns  and base table
-  //  columns
+  // 返回索引列和基表列之间的映射关系 
   inline const std::vector<int> &GetKeyAttrs() const { return key_attrs_; }
 
-  // Get a string representation for debugging
+  // 获取用于调试的字符串表示
   const std::string ToString() const {
     std::stringstream os;
 
@@ -67,9 +65,9 @@ public:
 private:
   std::string name_;
   std::string table_name_;
-  // The mapping relation between key schema and tuple schema
+  // 键模式和元组模式之间的映射关系
   const std::vector<int> key_attrs_;
-  // schema of the indexed key
+  // 索引键的模式
   Schema *key_schema_;
 };
 
@@ -78,18 +76,10 @@ private:
 /////////////////////////////////////////////////////////////////////
 
 /**
- * class Index - Base class for derived indices of different types
- *
- * The index structure majorly maintains information on the schema of the
- * schema of the underlying table and the mapping relation between index key
- * and tuple key, and provides an abstracted way for the external world to
- * interact with the underlying index implementation without exposing
- * the actual implementation's interface.
- *
- * Index object also handles predicate scan, in addition to simple insert,
- * delete, predicate insert, point query, and full index scan. Predicate scan
- * only supports conjunction, and may or may not be optimized depending on
- * the type of expressions inside the predicate.
+ * 索引结构主要维护底层表的模式信息以及索引键和元组键之间的映射关系，
+ * 并为外部世界提供了一种与底层索引实现交互的抽象方法，而无需暴露实际实现的接口。
+ * 除了简单的插入、删除、谓词插入、点查询和全索引扫描之外，Index object还可以处理谓词扫描。
+ * 谓词扫描只支持连接，并且可能优化，也可能不优化，这取决于谓词内部表达式的类型。
  */
 class Index {
 public:

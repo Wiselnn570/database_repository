@@ -1,12 +1,11 @@
 /**
  * b_plus_tree.h
  *
- * Implementation of simple b+ tree data structure where internal pages direct
- * the search and leaf pages contain actual data.
- * (1) We only support unique key
- * (2) support insert & remove
- * (3) The structure should shrink and grow dynamically
- * (4) Implement index iterator for range scan
+ * 实现简单的b+树数据结构，其中内部页引导搜索，叶页包含实际数据。
+ * (1) 我们只支持唯一键
+ * (2) 支持插入和删除
+ * (3) 结构应该动态收缩和增长
+ * (4) 为范围扫描实现索引迭代器
  */
 #pragma once
 
@@ -21,7 +20,7 @@
 namespace scudb {
 
 #define BPLUSTREE_TYPE BPlusTree<KeyType, ValueType, KeyComparator>
-// Main class providing the API for the Interactive B+ Tree.
+// 主类为交互式B+树提供API。
 INDEX_TEMPLATE_ARGUMENTS
 class BPlusTree {
 public:
@@ -30,32 +29,32 @@ public:
                      const KeyComparator &comparator,
                      page_id_t root_page_id = INVALID_PAGE_ID);
 
-  // Returns true if this B+ tree has no keys and values.
+  // 如果该B+树没有键和值，则返回true
   bool IsEmpty() const;
 
-  // Insert a key-value pair into this B+ tree.
+  // 向该B+树中插入一个键值对。
   bool Insert(const KeyType &key, const ValueType &value,
               Transaction *transaction = nullptr);
 
-  // Remove a key and its value from this B+ tree.
+  // 从B+树中删除一个键和它对应的值。
   void Remove(const KeyType &key, Transaction *transaction = nullptr);
 
-  // return the value associated with a given key
+  // 返回与给定键关联的值
   bool GetValue(const KeyType &key, std::vector<ValueType> &result,
                 Transaction *transaction = nullptr);
 
-  // index iterator
+  // 索引迭代器
   INDEXITERATOR_TYPE Begin();
   INDEXITERATOR_TYPE Begin(const KeyType &key);
 
-  // Print this B+ tree to stdout using a simple command-line
+  // 使用简单的命令行将这个B+树打印到标准输出
   std::string ToString(bool verbose = false);
 
-  // read data from file and insert one by one
+  // 从文件中读取数据并逐个插入
   void InsertFromFile(const std::string &file_name,
                       Transaction *transaction = nullptr);
 
-  // read data from file and remove one by one
+  // 从文件中读取数据并逐个删除
   void RemoveFromFile(const std::string &file_name,
                       Transaction *transaction = nullptr);
   // expose for test purpose
@@ -104,12 +103,12 @@ private:
 
   inline void Lock(bool exclusive,Page * page) {
     if (exclusive) {
-      page->WLatch();
+      page->WLatch(); // 排它锁
     } else {
-      page->RLatch();
+      page->RLatch(); // 共享锁
     }
   }
-
+  
   inline void Unlock(bool exclusive,Page * page) {
     if (exclusive) {
       page->WUnlatch();

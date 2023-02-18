@@ -1,11 +1,9 @@
 /**
  * generic_key.h
  *
- * Key used for indexing with opaque data
+ * 用于索引不透明数据的键
  *
- * This key type uses an fixed length array to hold data for indexing
- * purposes, the actual size of which is specified and instantiated
- * with a template argument.
+ * key类型使用一个固定长度的数组来保存用于索引的数据，数组的实际大小由模板参数指定并实例化。
  */
 #pragma once
 
