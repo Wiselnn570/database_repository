@@ -232,7 +232,4 @@ Result:
 
 ![b_plus_tree_test_img](project2/result_image/b_plus_tree_test_pass.jpg "b_plus_tree_test_passed")
 
-### bptTreeTest_unitTest passed
-
-![bptTreeTest_unitTest_img](project2/result_image/bptTreeTest_pass.png "bptTreeTest_passed")
 </details>
