@@ -2,7 +2,7 @@
 <span><img src="https://img.shields.io/badge/-SCU-red?logo=github"></span>
 <span><img src="https://img.shields.io/badge/Database-Sqlite-blue?logo=sqlite"><span>
 
-DataBase course of SCU 魏熙林 2019141410450
+db lab course of scu
 
 <details>
 <summary>Homework1</summary>
