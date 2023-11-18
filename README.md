@@ -2,7 +2,7 @@
 <span><img src="https://img.shields.io/badge/-SCU-red?logo=github"></span>
 <span><img src="https://img.shields.io/badge/Database-Sqlite-blue?logo=sqlite"><span>
 
-db lab course of scu
+DB Lab Course of SCU
 
 <details>
 <summary>Homework1</summary>
